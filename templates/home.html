@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block content %}
+    <div class="content-section">
+      <form method="POST" action="">
+        <h2>Paste text to check for scams:</h2><br>
+          <input type="text" name="input_text" value='' class="col-md-12">
+          <br><br>
+            <input type="submit" value="Submit"><br>
+      </form>
+    </div>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class=flashes style="padding:0">
+      {% for message in messages %}
+        <div class="content-section">
+          {{ message }} <br>
+        </div>
+      {% endfor %}
+      </ul>
+      {% endif %}
+    {% endwith %}
+{% block body %}{% endblock %}
+{% endblock content %}
