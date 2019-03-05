@@ -3,7 +3,7 @@ import fastText
 import re
 app = Flask(__name__)
 
-app.config['SECRET_KEY'] = 'ed025c9f99a6e3d55185'
+app.config['SECRET_KEY'] = 'supersecretkey'
 
 def strip_formatting(string):
     string = string.lower()
@@ -12,18 +12,25 @@ def strip_formatting(string):
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
+    harmless_green = True
     classifier = fastText.load_model('spam_model.bin')
     if request.method == 'POST':
         normalized = strip_formatting(request.form['input_text'])
         labels = classifier.predict(normalized)
         confidence = float(str(labels[1])[1:-1]) * 100
         if str(labels[0]) == str("('__label__ham',)"):
-            flash("Text: " + request.form['input_text'])
-            flash("Harmless:   " + "{0}".format(round(confidence)) + "%")
+            flash(request.form['input_text'])
+            harmless_green = True
+            #flash("Harmless:   " + "{0}".format(round(confidence)) + "%")
         else:
-            flash("Text: " + request.form['input_text'])
-            flash("Harmful:    " + "{0}".format(round(confidence)) + "%")
-    return render_template('home.html')
+            flash(request.form['input_text'])
+            harmless_green = False
+            #flash("Harmful:    " + "{0}".format(round(confidence)) + "%")
+    return render_template('home.html', harmless_green=harmless_green)
+
+@app.route("/help", methods=['GET', 'POST'])
+def help():
+    return render_template('help.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

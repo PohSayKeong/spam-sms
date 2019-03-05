@@ -91,3 +91,36 @@ a.article-title:hover {
   max-width:100%;
   object-fit: contain;
 }
+
+#submitbutton {
+  background-color: #000000;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+#greenbox, #blankgreen {
+  background-color: #06BF0C;
+}
+
+#redbox, #blankred {
+  background-color: #BF0606;
+}
+
+#blankred, #blankgreen {
+  display: inline-block;
+  padding: 5px 5px;
+}
+
+#helpbox {
+  border-style: solid;
+  border-radius: 50%;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-color: white;
+}
